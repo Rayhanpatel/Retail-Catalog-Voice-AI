@@ -8,6 +8,10 @@ This repo publishes the full engineering workspace:
 - `wine-voice-explorer` — simpler standalone sandbox for the same advisor
 - `packages/wine-ai-core` — shared retrieval, prompt, streaming, voice, and proxy logic
 
+## Demo
+
+[Watch the Demo on Loom](https://www.loom.com/share/eae8e365e71a489e872152db640f4e63)
+
 ## Dataset
 
 The wine catalog comes from the provided spreadsheet and is mirrored locally as JSON assets for fast client-side retrieval:
