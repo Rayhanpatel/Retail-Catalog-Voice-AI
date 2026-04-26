@@ -1,40 +1,147 @@
 # Retail Catalog Voice AI
 
-Catalog-grounded voice retail agent with a 3D boutique. Turns a static product catalog into an interactive shopping experience: users ask questions by voice or text, see recommendations on screen, and hear replies spoken aloud.
+Voice-enabled product advisor workspace built around a provided product catalog. The project turns a static dataset into a grounded retail experience: users can ask about products by voice or text, see recommendations on screen, and hear replies spoken back in a natural voice.
 
-Full engineering workspace:
+This repo publishes the full engineering workspace:
 
-- `wine-boutique-world` — flagship 3D boutique demo with an in-world NPC consultation overlay
-- `wine-voice-explorer` — standalone sandbox for the same advisor core
+- `wine-boutique-world` — flagship 3D boutique demo with an in-world concierge consultation
+- `wine-voice-explorer` — simpler standalone sandbox for the same advisor
 - `packages/wine-ai-core` — shared retrieval, prompt, streaming, voice, and proxy logic
 
 ## Demo
 
 [Watch the Demo on Loom](https://www.loom.com/share/eae8e365e71a489e872152db640f4e63)
 
-## What the System Does
+## Dataset
 
-- Loads a product catalog as the source of truth (JSON, client-side)
-- Accepts voice or text questions via WebRTC
-- Parses structured shopping signals: price, region, type, occasion, gift intent
-- Retrieves a candidate set locally using a deterministic filter — no vector store
-- Sends only grounded catalog context to Vertex AI (Gemini 2.5 Flash)
-- Streams the answer into the UI and speaks it with Google Cloud TTS
-- 3-layer TTS fallback: Cloud TTS → browser speech synthesis → text
-- 5-state consultation flow with carry-forward filters; progressively relaxes constraints on a miss
+The product catalog comes from the provided spreadsheet and is mirrored locally as JSON assets for fast client-side retrieval:
 
-The 3D boutique app wraps that core in a full product shell: 3D scene, NPC interaction, ambient audio, and an integrated consultation overlay.
+- [Catalog dataset spreadsheet](https://docs.google.com/spreadsheets/d/1Bkv3Jb_8YuLUG2rWUhJhQBdaGjQCMFfwF9oJ5jrYDSA/edit?usp=sharing)
 
-## Stack
+The assistant is designed to stay grounded in that catalog rather than inventing products, prices, or details.
 
-React 19, THREE.js, Gemini 2.5 Flash, Vertex AI Streaming, Google Cloud TTS, WebRTC, FastAPI
+## What The System Does
+
+- loads a product catalog as the source of truth
+- accepts voice or text questions
+- parses structured shopping signals such as price, region, category, type, and gift intent
+- retrieves a candidate set locally from the catalog data
+- sends only grounded catalog context to Vertex AI
+- streams the answer into the UI and speaks it aloud with Google Cloud TTS
+
+The flagship boutique app adds a richer product shell around that core: 3D scene, NPC interaction, ambience, and an integrated consultation overlay.
 
 ## Workspace Layout
 
-```
-Catalog-Voice-AI/
-├── wine-boutique-world/      # 3D boutique app
-├── wine-voice-explorer/      # standalone sandbox
+```text
+Retail-Catalog-Voice-AI/
+├── wine-boutique-world/      # flagship 3D boutique app
+├── wine-voice-explorer/      # standalone sandbox app
 └── packages/
-    └── wine-ai-core/         # shared core logic
+    └── wine-ai-core/         # shared retrieval, voice, prompt, and proxy code
 ```
+
+More detail is in [ARCHITECTURE.md](./ARCHITECTURE.md).
+
+## Architecture Summary
+
+High-level request flow:
+
+```text
+voice/text question
+  -> browser input handling
+  -> query parsing + local catalog retrieval
+  -> grounded prompt assembly
+  -> Vertex AI streamed response
+  -> text in UI
+  -> Google Cloud TTS playback
+```
+
+Key design decisions:
+
+- The catalog remains the source of truth.
+- Retrieval is structured and local, not a free-form "ask the model to know the catalog" approach.
+- The shared core keeps retrieval and voice behavior consistent across both apps.
+- The boutique app is optimized for a polished demo; the explorer stays simpler for experimentation.
+
+## Quick Start
+
+### Prerequisites
+
+- Node.js 20+
+- npm 9+
+- Google Cloud SDK (`gcloud`)
+- A Google Cloud project with:
+  - Vertex AI API enabled
+  - Cloud Text-to-Speech API enabled
+  - optional: Cloud Speech-to-Text API if you want to experiment with the non-demo server path
+
+Authenticate locally:
+
+```bash
+gcloud auth login
+gcloud config set project YOUR_PROJECT_ID
+```
+
+### Install
+
+```bash
+npm install
+cp wine-boutique-world/.env.example wine-boutique-world/.env
+cp wine-voice-explorer/.env.example wine-voice-explorer/.env
+```
+
+Set `VITE_GOOGLE_CLOUD_PROJECT` in each app if your Google Cloud project differs from the default.
+
+### Run
+
+```bash
+# Flagship boutique app
+npm run dev:boutique
+
+# Standalone explorer sandbox
+npm run dev:explorer
+
+# Shared standalone proxy server for non-Vite environments
+npm run proxy:server
+```
+
+### Build And Test
+
+```bash
+npm run build:all
+npm run test:all
+npm run check:all
+```
+
+## Browser Support
+
+- `wine-boutique-world` voice input is tuned for Chrome-family browsers.
+- Safari should be treated as text-first in the flagship boutique app.
+- Voice output uses Google Cloud TTS for the premium concierge voice.
+
+## Security And Credentials
+
+- No API keys are required in the browser.
+- Google Cloud requests are routed through the shared proxy layer in `packages/wine-ai-core/server`.
+- Local auth is handled through `gcloud auth print-access-token`.
+- `.env` files, internal notes, and local-only workspace material are intentionally excluded from source control.
+
+See [SECURITY.md](./SECURITY.md) for the public security note.
+
+## Public Docs
+
+- [ARCHITECTURE.md](./ARCHITECTURE.md)
+- [wine-boutique-world/README.md](./wine-boutique-world/README.md)
+- [wine-voice-explorer/README.md](./wine-voice-explorer/README.md)
+
+## Known Limitations
+
+- The flagship boutique app is optimized for demo stability, not full production deployment.
+- Voice input quality depends on browser speech recognition in the current Chrome-first demo path.
+- The boutique build still carries large 3D asset chunks and could benefit from additional code-splitting.
+- The local Google-auth proxy setup is convenient for development, but a production deployment would need a hardened server-side auth strategy.
+
+## License
+
+[MIT](./LICENSE)
