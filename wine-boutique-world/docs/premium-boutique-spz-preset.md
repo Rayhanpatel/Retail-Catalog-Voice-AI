@@ -21,7 +21,7 @@ The preset is not just a spawn point. It packages the full room-shell behavior:
 - room bounds
 - walkable corridor zones
 - blocked zones for shelving, bar, and doorway exit control
-- sommelier anchor and talk radius
+- concierge anchor and talk radius
 - presentation-mode defaults for the room itself
 
 ## Reusable Idea
@@ -68,7 +68,7 @@ This preset assumes:
 - the player begins just inside the front door looking inward
 - the accessible path is the main boutique floor, not the shelving or behind-bar zones
 - the doorway is visually open but behaviorally blocked for v1
-- the sommelier is visible and reachable without exploring a large world
+- the concierge is visible and reachable without exploring a large world
 
 ## How To Port It
 
