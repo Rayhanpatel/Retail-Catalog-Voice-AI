@@ -1,4 +1,4 @@
-# Catalog Voice AI
+# Retail Catalog Voice AI
 
 Catalog-grounded voice retail agent with a 3D boutique. Turns a static product catalog into an interactive shopping experience: users ask questions by voice or text, see recommendations on screen, and hear replies spoken aloud.
 
