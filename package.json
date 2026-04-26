@@ -1,5 +1,5 @@
 {
-  "name": "catalog-voice-ai-workspace",
+  "name": "retail-catalog-voice-ai-workspace",
   "private": true,
   "scripts": {
     "dev:boutique": "npm --workspace wine-boutique-world run dev",
