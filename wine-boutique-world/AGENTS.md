@@ -1,12 +1,12 @@
 # AGENTS.md
 
 ## Project goal
-Build a separate project called `wine-boutique-world` that focuses only on the 3D wine boutique room/world, first-person movement, camera constraints, room bounds, and a placeholder sommelier NPC interaction shell.
+Build a separate project called `wine-boutique-world` that focuses only on the 3D boutique room/world, first-person movement, camera constraints, room bounds, and a placeholder concierge NPC interaction shell.
 
-Do **not** integrate the existing Wine Voice Explorer app yet. This repo must stay fully separate for now. The future voice/recommendation layer will be added later.
+Do **not** integrate the existing Voice Explorer app yet. This repo must stay fully separate for now. The future voice/recommendation layer will be added later.
 
 ## Product intent
-This should feel like a premium, compact wine boutique experience on the web.
+This should feel like a premium, compact retail boutique experience on the web.
 
 The user should feel like they just entered the boutique from the front door and are standing inside a curated, intimate room.
 
@@ -25,8 +25,8 @@ Build only:
 - floor-only WASD movement
 - room bounds / blocked zones
 - spawn at the door
-- placeholder sommelier NPC position
-- simple “Talk to sommelier” interaction prompt
+- placeholder concierge NPC position
+- simple "Talk to concierge" interaction prompt
 - simple debug/tuning system for positions and bounds
 
 Do **not** build yet:
@@ -61,11 +61,11 @@ Do **not** build yet:
 - Block movement into shelves, walls, furniture, and behind the bar
 
 ## NPC rules
-- Add only a placeholder sommelier NPC position for now
+- Add only a placeholder concierge NPC position for now
 - NPC should be visible soon after spawn
 - NPC does not need real animation or voice in v1
 - A simple marker / placeholder is acceptable
-- Add a simple interaction prompt near the NPC: “Talk to sommelier”
+- Add a simple interaction prompt near the NPC: "Talk to concierge"
 
 ## Asset strategy
 - The repo includes a real World Labs / Marble world asset in `.spz` format
@@ -107,4 +107,4 @@ Prefer a simple config object or lightweight debug UI.
   - how to test it
 - Keep the first working version simple and practical
 - Do not overengineer
-- Optimize for a clean MVP that can later connect to Wine Voice Explorer
+- Optimize for a clean MVP that can later connect to the Voice Explorer
