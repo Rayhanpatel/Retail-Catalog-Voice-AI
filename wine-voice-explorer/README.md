@@ -1,6 +1,6 @@
 # Voice Explorer
 
-Standalone sandbox for the shared Catalog Voice AI core. This app keeps a simpler full-screen chat interface for experimenting with the same grounded product advisor that powers the flagship boutique experience.
+Standalone sandbox for the shared Retail Catalog Voice AI core. This app keeps a simpler full-screen chat interface for experimenting with the same grounded product advisor that powers the flagship boutique experience.
 
 ## Responsibilities
 
