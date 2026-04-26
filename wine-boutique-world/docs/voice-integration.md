@@ -1,6 +1,6 @@
 # Voice Integration Notes
 
-The boutique app is now the primary integrated experience. The old “future integration” split has become:
+The boutique app is now the primary integrated experience. The old "future integration" split has become:
 
 - `wine-boutique-world` owns the world shell, NPC interaction flow, and consultation UI
 - `wine-voice-explorer` remains the sandbox/demo shell
@@ -34,7 +34,7 @@ The shared core should own:
 
 - microphone and speech-session primitives
 - recommendation logic
-- wine matching and closest-match relaxation
+- product matching and closest-match relaxation
 - Vertex AI requests and TTS requests
 - deployable proxy/server routes
 
